@@ -1,7 +1,7 @@
 package Problem001
-
-class Problem001 {
 // minimum jumps required to reach
+class Problem001 {
+
   def minimumJumps(arr:Array[Int]):Int={
     val n=arr.length-1
     minJumps(arr,0,n)
@@ -10,21 +10,17 @@ class Problem001 {
   def minJumps(arr: Array[Int], value:Int, n: Int):Int={
     var l=value
     var h=n
-    if(l==h){
-      0
-    }
-    if(arr(l)==0){
-      Integer.MAX_VALUE
-    }
-    var min=Integer.MAX_VALUE
 
-    for(i<- l+1 to h if i <= l+arr(l)){
+    val jumps=new Array[Int](n)
 
-      val jumps=minJumps(arr,i,h)
-      if(jumps != Integer.MAX_VALUE && jumps+1 < min){
-        min=jumps+1
-      }
+    for(i<-1 until n){
+      jumps(i)=Integer.MAX_VALUE
+        for(j<-0 until i){
+          if(i<=j+arr(j) && jumps(j) != Integer.MAX_VALUE){
+            jumps(i)=Math.min(jumps(i),jumps(j)+1)
+          }
+        }
     }
-    min
+    jumps(n-1)
   }
 }
